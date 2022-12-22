@@ -17,16 +17,16 @@ jobs:
       with:
         go-version: 1.18
 
-    - name: Set environment variables
-      run: |
-        echo "::set-env name=PAT::${{ secrets.PAT }}"
+    - name: Set environment variable
+      env:
+        PAT: ${{ secrets.PAT }}
 
     - name: Run conformance table generator
       run: |
         cd conformance_table_generator/
         go run main.go -t phase2 -v 2
       env:
-        PAT: ${{ env.PAT }}
+        PAT: $PAT
     
     - name: Run export data
       run: |
